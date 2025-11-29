@@ -15,3 +15,4 @@ class EnrollmentAdmin(admin.ModelAdmin):
     list_display = ("user", "course", "enrolled_at")
     list_filter = ("enrolled_at",)
     search_fields = ("user__username", "user__email", "course__title")
+#just to test commit
