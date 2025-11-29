@@ -10,3 +10,6 @@ As the Scrum Master, I will organize all sprint documentation here, including:
 - Sprint retrospective
 
 All Agile artifacts for Sprint 1 will be stored and maintained in this folder.
+
+Trello Board:
+https://trello.com/b/ENHRHKig/student-course-enrollment-system-sprint-1 
