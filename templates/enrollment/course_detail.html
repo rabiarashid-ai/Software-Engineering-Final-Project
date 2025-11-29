@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ course.code }} - {{ course.title }}</h2>
+<p><strong>Semester:</strong> {{ course.semester }}</p>
+<p><strong>Credits:</strong> {{ course.credits }}</p>
+<p><strong>Capacity:</strong> {{ course.enrolled_count }} / {{ course.capacity }}</p>
+<p>{{ course.description }}</p>
+
+{% if is_enrolled %}
+    <form method="post" action="{% url 'drop_course' course.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-warning">Drop Course</button>
+    </form>
+{% else %}
+    {% if course.seats_remaining > 0 %}
+        <form method="post" action="{% url 'enroll_course' course.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Enroll</button>
+        </form>
+    {% else %}
+        <p class="text-danger">This course is full.</p>
+    {% endif %}
+{% endif %}
+{% endblock %}
