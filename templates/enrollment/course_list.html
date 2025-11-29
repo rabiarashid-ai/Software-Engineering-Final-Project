@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Courses{% endblock %}
+{% block content %}
+<h1>Courses</h1>
+
+{% if user.is_staff %}
+    <p><a role="button" href="{% url 'course_create' %}">Create course</a></p>
+{% endif %}
+
+{% if courses %}
+    <ul>
+        {% for course in courses %}
+            <li>
+                <a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a>
+                {% if course.instructor %}<small>by {{ course.instructor }}</small>{% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No courses available yet.</p>
+{% endif %}
+{% endblock %}

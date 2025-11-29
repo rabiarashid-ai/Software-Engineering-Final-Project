@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}{% if is_edit %}Edit Course{% else %}Create Course{% endif %}{% endblock %}
+{% block content %}
+<h1>{% if is_edit %}Edit Course{% else %}Create Course{% endif %}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% if is_edit %}Update{% else %}Create{% endif %}</button>
+    <a role="button" class="secondary" href="{% url 'course_list' %}">Cancel</a>
+</form>
+{% endblock %}
