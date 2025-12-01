@@ -5,14 +5,13 @@ from .models import Course, Enrollment
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ("title", "instructor", "start_date", "end_date", "capacity")
-    search_fields = ("title", "instructor")
-    list_filter = ("start_date", "end_date")
+    list_display = ("code", "title", "semester", "credits", "capacity")
+    search_fields = ("code", "title", "semester")
+    list_filter = ("semester",)
 
 
 @admin.register(Enrollment)
 class EnrollmentAdmin(admin.ModelAdmin):
-    list_display = ("user", "course", "enrolled_at")
+    list_display = ("student", "course", "enrolled_at")
     list_filter = ("enrolled_at",)
-    search_fields = ("user__username", "user__email", "course__title")
-#just to test commit
+    search_fields = ("student__username", "student__email", "course__title", "course__code")

@@ -3,41 +3,48 @@ from django.db import models
 
 
 class Course(models.Model):
+    code = models.CharField(max_length=20)
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    instructor = models.CharField(max_length=255, blank=True)
-    start_date = models.DateField(null=True, blank=True)
-    end_date = models.DateField(null=True, blank=True)
+    semester = models.CharField(max_length=50)
+    credits = models.PositiveIntegerField(default=0)
     capacity = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["title"]
+        ordering = ["code"]
 
     def __str__(self) -> str:
-        return self.title
+        return f"{self.code} - {self.title}"
 
     @property
-    def seats_taken(self) -> int:
+    def enrolled_count(self) -> int:
         return self.enrollments.count()
 
     @property
-    def seats_available(self) -> int:
-        if self.capacity == 0:
-            return 0
-        return max(self.capacity - self.seats_taken, 0)
+    def seats_remaining(self) -> int:
+        return max(self.capacity - self.enrolled_count, 0)
 
 
 class Enrollment(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="enrollments")
+    student = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="enrollments",
+    )
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="enrollments")
     enrolled_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ["-enrolled_at"]
         constraints = [
-            models.UniqueConstraint(fields=["user", "course"], name="unique_user_course_enrollment"),
+            models.UniqueConstraint(fields=["student", "course"], name="unique_student_course_enrollment"),
         ]
 
     def __str__(self) -> str:
-        return f"{self.user} -> {self.course}"
+        return f"{self.student.username} -> {self.course.code}"
+
+    @property
+    def user(self):
+        """Backward compatibility alias; prefer .student."""
+        return self.student
