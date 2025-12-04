@@ -112,9 +112,7 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    {% if user.is_authenticated %}
     <!-- Navigation Bar -->
-        <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'course_list' %}">
@@ -174,7 +172,6 @@
             </div>
         </div>
     </nav>
-    {% endif %}
 
     <!-- Messages -->
     {% if messages %}
@@ -189,7 +186,7 @@
     {% endif %}
 
     <!-- Main Content -->
-    <main class="{% if user.is_authenticated %}container{% endif %}">
+    <main class="container py-4">
         {% block content %}{% endblock %}
     </main>
 
