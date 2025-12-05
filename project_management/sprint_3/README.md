@@ -8,6 +8,7 @@ This folder contains all documentation and deliverables for Sprint 3 of our Soft
 - Sprint planning notes
 - Final Presentation video link
 - Sprint retrospective and final reflection
+- Trello: https://trello.com/b/ENHRHKig/student-course-enrollment-system-sprint-3 
 
 Sprint 3 represents the final development cycle, ensuring all features are completed, tested, and prepared for final submission.
 
